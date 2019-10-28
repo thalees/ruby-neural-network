@@ -8,4 +8,4 @@ dataset = {
 }
 
 nn = NeuralNetwork.new(2, 3, 1)
-nn.train([1, 0])
+nn.train([1, 0], [1])
