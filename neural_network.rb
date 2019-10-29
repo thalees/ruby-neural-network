@@ -31,7 +31,7 @@ class NeuralNetwork
     output_error = expected - output
 
     d_output = @calculator.dsigmoid(output)
-    
+
     hidden_T = hidden.transpose
 
     gradient = @calculator.hadamard(d_output, output_error) * @learning_rate
@@ -70,5 +70,17 @@ class NeuralNetwork
   def hidden_to_output(hidden_matrix)
     output = @weigth_hidden_output * hidden_matrix
     @calculator.sigmoid(output + @bias_hidden_output)
+  end
+  
+  def predict(array)
+    # Input -> Hidden
+    input = Matrix.column_vector(array)
+
+    hidden = @weigth_input_hidden * input
+    hidden = @calculator.sigmoid(hidden + @bias_input_hidden)
+
+    # Hidden -> Output
+    output = @weigth_hidden_output * hidden
+    @calculator.sigmoid(output + @bias_hidden_output).to_a
   end
 end
